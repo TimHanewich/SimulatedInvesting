@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Yahoo.Finance;
+using TimHanewich.Investing;
 
 namespace SimulatedInvesting
 {
@@ -156,28 +157,44 @@ namespace SimulatedInvesting
 
         public async Task<float> CalculateNetProfitAsync()
         {
-            //Get value of full portfolio
-            float PortfolioValue = 0;
+            //Get list of all stocks
+            List<string> stocks = new List<string>();
             foreach (EquityHolding eh in EquityHoldings)
             {
-                Equity e = Equity.Create(eh.Symbol);
-                await e.DownloadSummaryAsync();
-                PortfolioValue = PortfolioValue + (e.Summary.Price * eh.Quantity);
+                if (stocks.Contains(eh.Symbol.Trim().ToUpper()) == false)
+                {
+                    stocks.Add(eh.Symbol.Trim().ToUpper());
+                }
             }
+           
+            //Get the equity data as a batch
+            BatchStockDataProvider bsdp = new BatchStockDataProvider();
+            EquitySummaryData[] esds = await bsdp.GetBatchEquitySummaryData(stocks.ToArray());
 
-
-            //Add cash to the value of the portfolio
-            PortfolioValue = PortfolioValue + Cash;
-
-
-            //Get net cash received
-            float CashReceived = 0;
+            //Add up our portfolio value
+            float PortValue = 0;
+            foreach (EquityHolding eh in EquityHoldings)
+            {
+                foreach (EquitySummaryData esd in esds)
+                {
+                    if (esd.StockSymbol.ToUpper().Trim() == eh.Symbol.ToUpper().Trim())
+                    {
+                        float thisstockval = eh.Quantity * esd.Price;
+                        PortValue = PortValue + thisstockval;
+                    }
+                }
+            }
+            
+            //Find how much cash was invested
+            float CashInvested = 0;
             foreach (CashTransaction ct in CashTransactionLog)
             {
-                CashReceived = CashReceived + ct.CashChange;
+                CashInvested = ct.CashChange;
             }
 
-            return PortfolioValue - CashReceived;
+
+            return PortValue + Cash - CashInvested;
+            
         }
 
     }

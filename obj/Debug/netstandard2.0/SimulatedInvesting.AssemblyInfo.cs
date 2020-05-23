@@ -16,7 +16,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyDescriptionAttribute("Allows you to manage a fake investment portfolio while investing in stocks, bonds" +
     ", and options.")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("0.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.1.0")]
 [assembly: System.Reflection.AssemblyProductAttribute("SimulatedInvesting")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SimulatedInvesting")]
 [assembly: System.Reflection.AssemblyVersionAttribute("0.0.0.0")]

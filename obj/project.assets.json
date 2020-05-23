@@ -26,8 +26,42 @@
           "build/netstandard2.0/NETStandard.Library.targets": {}
         }
       },
-      "Yahoo.Finance/1.0.0": {
+      "Newtonsoft.Json/12.0.3": {
         "type": "package",
+        "compile": {
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {}
+        }
+      },
+      "TimHanewich.Investing/3.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Newtonsoft.Json": "12.0.3",
+          "Yahoo.Finance": "3.0.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/TimHanewich.Investing.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/TimHanewich.Investing.dll": {}
+        }
+      },
+      "TimHanewichToolkit/1.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/TimHanewichToolkit.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/TimHanewichToolkit.dll": {}
+        }
+      },
+      "Yahoo.Finance/3.0.0": {
+        "type": "package",
+        "dependencies": {
+          "TimHanewichToolkit": "1.0.0"
+        },
         "compile": {
           "lib/netstandard2.0/Yahoo.Finance.dll": {}
         },
@@ -182,16 +216,73 @@
         "netstandard.library.nuspec"
       ]
     },
-    "Yahoo.Finance/1.0.0": {
-      "sha512": "KROkkeknJb0uEa2tEoBERtkyuZon5zOWL3x0/PwU9MQmo7W+ISX+JGpWNeZ3+1DmXq/Pv1kmueJ9zOVYu0/Z5w==",
+    "Newtonsoft.Json/12.0.3": {
+      "sha512": "6mgjfnRB4jKMlzHSl+VD+oUc1IebOZabkbyWj2RiTgWwYPPuaK1H97G1sHqGwPlS5npiF5Q0OrxN1wni2n5QWg==",
       "type": "package",
-      "path": "yahoo.finance/1.0.0",
+      "path": "newtonsoft.json/12.0.3",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "Yahoo Logo.png",
+        "LICENSE.md",
+        "lib/net20/Newtonsoft.Json.dll",
+        "lib/net20/Newtonsoft.Json.xml",
+        "lib/net35/Newtonsoft.Json.dll",
+        "lib/net35/Newtonsoft.Json.xml",
+        "lib/net40/Newtonsoft.Json.dll",
+        "lib/net40/Newtonsoft.Json.xml",
+        "lib/net45/Newtonsoft.Json.dll",
+        "lib/net45/Newtonsoft.Json.xml",
+        "lib/netstandard1.0/Newtonsoft.Json.dll",
+        "lib/netstandard1.0/Newtonsoft.Json.xml",
+        "lib/netstandard1.3/Newtonsoft.Json.dll",
+        "lib/netstandard1.3/Newtonsoft.Json.xml",
+        "lib/netstandard2.0/Newtonsoft.Json.dll",
+        "lib/netstandard2.0/Newtonsoft.Json.xml",
+        "lib/portable-net40+sl5+win8+wp8+wpa81/Newtonsoft.Json.dll",
+        "lib/portable-net40+sl5+win8+wp8+wpa81/Newtonsoft.Json.xml",
+        "lib/portable-net45+win8+wp8+wpa81/Newtonsoft.Json.dll",
+        "lib/portable-net45+win8+wp8+wpa81/Newtonsoft.Json.xml",
+        "newtonsoft.json.12.0.3.nupkg.sha512",
+        "newtonsoft.json.nuspec",
+        "packageIcon.png"
+      ]
+    },
+    "TimHanewich.Investing/3.0.0": {
+      "sha512": "TEHpYNO5Mxy6VHQwqsm1N9dxfOWS43aR2wj1kuxYvbUi3iB3VRwV1xFva9WBzCjiPoGuqefS17p8qppjImw3bQ==",
+      "type": "package",
+      "path": "timhanewich.investing/3.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "BullIcon.jpg",
+        "lib/netstandard2.0/TimHanewich.Investing.dll",
+        "timhanewich.investing.3.0.0.nupkg.sha512",
+        "timhanewich.investing.nuspec"
+      ]
+    },
+    "TimHanewichToolkit/1.0.0": {
+      "sha512": "eruT9FcyrIlmaUJjft+byVSdUBf4VSCDAsGFKLehf1fmSeBoIrQsPJjA9bCA/P7RtFEQgSlUNzqempfCCilw4Q==",
+      "type": "package",
+      "path": "timhanewichtoolkit/1.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "ToolIcon.jpg",
+        "lib/netstandard2.0/TimHanewichToolkit.dll",
+        "timhanewichtoolkit.1.0.0.nupkg.sha512",
+        "timhanewichtoolkit.nuspec"
+      ]
+    },
+    "Yahoo.Finance/3.0.0": {
+      "sha512": "yDpnMUhSF5PV0OQ7/bxuRW6eTZBGULYfTF/+Eevd30YDeFoqJ/+dFzBsoHIE5L0Laf/FL6/UMIQ5cQwaw0QNug==",
+      "type": "package",
+      "path": "yahoo.finance/3.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "YahooLogo.png",
         "lib/netstandard2.0/Yahoo.Finance.dll",
-        "yahoo.finance.1.0.0.nupkg.sha512",
+        "yahoo.finance.3.0.0.nupkg.sha512",
         "yahoo.finance.nuspec"
       ]
     }
@@ -199,14 +290,15 @@
   "projectFileDependencyGroups": {
     ".NETStandard,Version=v2.0": [
       "NETStandard.Library >= 2.0.3",
-      "Yahoo.Finance >= 1.0.0"
+      "TimHanewich.Investing >= 3.0.0",
+      "Yahoo.Finance >= 3.0.0"
     ]
   },
   "packageFolders": {
     "C:\\Users\\TaHan\\.nuget\\packages\\": {}
   },
   "project": {
-    "version": "1.0.0",
+    "version": "1.1.0",
     "restore": {
       "projectUniqueName": "C:\\Users\\TaHan\\Downloads\\SimulatedInvesting\\SimulatedInvesting.csproj",
       "projectName": "SimulatedInvesting",
@@ -245,9 +337,13 @@
             "version": "[2.0.3, )",
             "autoReferenced": true
           },
+          "TimHanewich.Investing": {
+            "target": "Package",
+            "version": "[3.0.0, )"
+          },
           "Yahoo.Finance": {
             "target": "Package",
-            "version": "[1.0.0, )"
+            "version": "[3.0.0, )"
           }
         },
         "imports": [

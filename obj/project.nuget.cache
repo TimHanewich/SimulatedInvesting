@@ -1,12 +1,15 @@
 {
   "version": 2,
-  "dgSpecHash": "fpdyHbuemqRUvD/AWBhJOHcc334D2MGy+y21sznsyrx/dOZw359YX87/FoAsMMJKh2GfD6Ze2tm2P7XGlRWOxA==",
+  "dgSpecHash": "SCaCSm/++WAaZqpjgAuGjzv8MSsHQJ/NZFGy8Mc75flOsZgkFiMCp0y+58Iy3W9MrSzUw5ibjr3mpdn6x3mhtw==",
   "success": true,
   "projectFilePath": "C:\\Users\\TaHan\\Downloads\\SimulatedInvesting\\SimulatedInvesting.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\TaHan\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
     "C:\\Users\\TaHan\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512",
-    "C:\\Users\\TaHan\\.nuget\\packages\\yahoo.finance\\1.0.0\\yahoo.finance.1.0.0.nupkg.sha512"
+    "C:\\Users\\TaHan\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512",
+    "C:\\Users\\TaHan\\.nuget\\packages\\timhanewich.investing\\3.0.0\\timhanewich.investing.3.0.0.nupkg.sha512",
+    "C:\\Users\\TaHan\\.nuget\\packages\\timhanewichtoolkit\\1.0.0\\timhanewichtoolkit.1.0.0.nupkg.sha512",
+    "C:\\Users\\TaHan\\.nuget\\packages\\yahoo.finance\\3.0.0\\yahoo.finance.3.0.0.nupkg.sha512"
   ],
   "logs": []
 }
