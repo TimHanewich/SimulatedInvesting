@@ -1,9 +1,0 @@
-C:\Users\TaHan\Downloads\SimulatedInvesting\bin\Debug\netstandard2.0\SimulatedInvesting.deps.json
-C:\Users\TaHan\Downloads\SimulatedInvesting\bin\Debug\netstandard2.0\SimulatedInvesting.dll
-C:\Users\TaHan\Downloads\SimulatedInvesting\bin\Debug\netstandard2.0\SimulatedInvesting.pdb
-C:\Users\TaHan\Downloads\SimulatedInvesting\obj\Debug\netstandard2.0\SimulatedInvesting.csprojAssemblyReference.cache
-C:\Users\TaHan\Downloads\SimulatedInvesting\obj\Debug\netstandard2.0\SimulatedInvesting.csproj.CoreCompileInputs.cache
-C:\Users\TaHan\Downloads\SimulatedInvesting\obj\Debug\netstandard2.0\SimulatedInvesting.AssemblyInfoInputs.cache
-C:\Users\TaHan\Downloads\SimulatedInvesting\obj\Debug\netstandard2.0\SimulatedInvesting.AssemblyInfo.cs
-C:\Users\TaHan\Downloads\SimulatedInvesting\obj\Debug\netstandard2.0\SimulatedInvesting.dll
-C:\Users\TaHan\Downloads\SimulatedInvesting\obj\Debug\netstandard2.0\SimulatedInvesting.pdb
