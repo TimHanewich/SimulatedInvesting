@@ -7,5 +7,6 @@ namespace SimulatedInvesting
         public string StockSymbol { get; set; }
         public int Quantity { get; set; }
         public TransactionType OrderType { get; set; }
+        public float PriceExecutedAt {get; set;}
     }
 }

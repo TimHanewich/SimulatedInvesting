@@ -108,6 +108,7 @@ namespace SimulatedInvesting
                 et.Quantity = quantity;
                 et.StockSymbol = symbol.ToUpper().Trim();
                 et.OrderType = order_type;
+                et.PriceExecutedAt = e.Summary.Price;
                 EquityTransactionLog.Add(et);
             }
             else if (order_type == TransactionType.Sell)
@@ -144,6 +145,7 @@ namespace SimulatedInvesting
                 et.StockSymbol = symbol.ToUpper().Trim();
                 et.OrderType = TransactionType.Sell;
                 et.Quantity = quantity;
+                et.PriceExecutedAt = e.Summary.Price;
                 EquityTransactionLog.Add(et);
 
                 //Remove the holding if it now 0
