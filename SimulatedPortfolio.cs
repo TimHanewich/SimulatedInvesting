@@ -93,12 +93,21 @@ namespace SimulatedInvesting
                 if (nh == null)
                 {
                     nh = new EquityHolding();
-                    nh.Symbol = symbol.ToUpper();
+                    nh.Symbol = symbol.ToUpper().Trim();
                     nh.Quantity = 0;
+                    nh.AverageCostBasis = 0;
                     EquityHoldings.Add(nh);
                 }
 
-                //Make the purchase
+               
+
+                //Calculate the new Average Per Share Cost basis
+                float CurrentTotalCost = nh.AverageCostBasis * nh.Quantity;
+                float NewTotalCost = e.Summary.Price * quantity;
+                float NewAvgCostBasis = (CurrentTotalCost + NewTotalCost) / (quantity + nh.Quantity);
+                nh.AverageCostBasis = NewAvgCostBasis;
+
+                //Edit cash and add the shares we are buying to the balane
                 Cash = Cash - cash_needed;
                 nh.Quantity = nh.Quantity + quantity;
 
