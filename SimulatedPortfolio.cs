@@ -208,5 +208,108 @@ namespace SimulatedInvesting
             
         }
 
+        public async Task<EquityHoldingPerformance[]> CalculateEquityHoldingPerformances()
+        {
+            List<EquityHoldingPerformance> ToReturn = new List<EquityHoldingPerformance>();
+
+            //Check if there are no holdings
+            if (EquityHoldings.Count == 0)
+            {
+                return ToReturn.ToArray(); 
+            }
+
+            //Get a list of all equities
+            List<string> Stocks = new List<string>();
+            foreach (EquityHolding eh in EquityHoldings)
+            {
+                if (Stocks.Contains(eh.Symbol.Trim().ToUpper()) == false)
+                {
+                    Stocks.Add(eh.Symbol.Trim().ToUpper());
+                }
+            }
+
+            //Get all stock data
+            BatchStockDataProvider bsdp = new BatchStockDataProvider();
+            EquitySummaryData[] ESDs = await bsdp.GetBatchEquitySummaryData(Stocks.ToArray());
+
+            //Check if we have all of them
+            if (Stocks.Count != ESDs.Length)
+            {
+                string DontHave = "";
+                foreach (string s in Stocks)
+                {
+                    bool HasIt = false;
+                    foreach (EquitySummaryData esd in ESDs)
+                    {
+                        if (esd.StockSymbol.Trim().ToUpper() == s.Trim().ToUpper())
+                        {
+                            HasIt = true;
+                        }
+                    }
+                    if (HasIt == false)
+                    {
+                        DontHave = DontHave + s + ",";
+                    }
+                }
+                throw new Exception("Unable to calculate all of the performance logs for your holdings because access of data failed: " + DontHave);
+            }
+
+
+            //Calculate the performances
+            foreach (string s in Stocks)
+            {
+                EquityHoldingPerformance ehp = new EquityHoldingPerformance();
+
+                //Find the right Equity Data
+                EquitySummaryData esd = null;
+                foreach (EquitySummaryData es in ESDs)
+                {
+                    if (es.StockSymbol.Trim().ToUpper() == s.Trim().ToUpper())
+                    {
+                        esd = es;
+                    }
+                }
+                if (esd == null)
+                {
+                    throw new Exception("Fatal error while calculating performance for " + s +".");
+                }
+
+                //Find the right equity holding
+                EquityHolding eh = null;
+                foreach (EquityHolding h in EquityHoldings)
+                {
+                    if (h.Symbol.Trim().ToUpper() == s.Trim().ToUpper())
+                    {
+                        eh = h;
+                    }
+                }
+                if (eh == null)
+                {
+                    throw new Exception("Fatal error while find holding for " + s +".");
+                }
+
+                //Add symbol
+                ehp.Symbol = s.Trim().ToUpper();
+
+                //Get dollars invested
+                ehp.DollarsInvested = eh.AverageCostBasis * eh.Quantity;
+
+                //Get holding value
+                ehp.HoldingValue = eh.Quantity * esd.Price;
+
+                //Get dollar profit
+                ehp.DollarProfit = ehp.HoldingValue - ehp.DollarsInvested;
+
+                //Get percent profit
+                ehp.PercentProfit = ehp.DollarProfit / ehp.DollarsInvested;
+
+                ToReturn.Add(ehp);
+
+            }
+
+
+            //Return them
+            return ToReturn.ToArray();
+        }
     }
 }
