@@ -79,46 +79,12 @@ namespace SimulatedInvesting
                     throw new Exception("You do not have enough cash to execute this buy order of " + symbol.ToUpper() + ".  Cash needed: $" + cash_needed.ToString("#,##0.00") + ".  Cash balance: $" + Cash.ToString("#,##0.00"));
                 }
 
-                //Check if we already have a holding like this
-                EquityHolding nh = null;
-                foreach (EquityHolding h in EquityHoldings)
-                {
-                    if (h.Symbol.ToUpper() == symbol.ToUpper())
-                    {
-                        nh = h;
-                    }
-                }
 
-                //Create a new one if we couldn't find this holding that already exists.
-                if (nh == null)
-                {
-                    nh = new EquityHolding();
-                    nh.Symbol = symbol.ToUpper().Trim();
-                    nh.Quantity = 0;
-                    nh.AverageCostBasis = 0;
-                    EquityHoldings.Add(nh);
-                }
-
-               
-
-                //Calculate the new Average Per Share Cost basis
-                float CurrentTotalCost = nh.AverageCostBasis * nh.Quantity;
-                float NewTotalCost = e.Summary.Price * quantity;
-                float NewAvgCostBasis = (CurrentTotalCost + NewTotalCost) / (quantity + nh.Quantity);
-                nh.AverageCostBasis = NewAvgCostBasis;
+                AddSharesAndCalculateNewAverageCostBasis(symbol.ToUpper().Trim(), quantity, e.Summary.Price, DateTimeOffset.Now);
 
                 //Edit cash and add the shares we are buying to the balane
                 Cash = Cash - cash_needed;
-                nh.Quantity = nh.Quantity + quantity;
 
-                //Log the transaction
-                EquityTransaction et = new EquityTransaction();
-                et.UpdateTransactionTime();
-                et.Quantity = quantity;
-                et.StockSymbol = symbol.ToUpper().Trim();
-                et.OrderType = order_type;
-                et.PriceExecutedAt = e.Summary.Price;
-                EquityTransactionLog.Add(et);
             }
             else if (order_type == TransactionType.Sell)
             {
@@ -310,6 +276,48 @@ namespace SimulatedInvesting
 
             //Return them
             return ToReturn.ToArray();
+        }
+    
+        private void AddSharesAndCalculateNewAverageCostBasis(string symbol, int quantity, float price_per_share, DateTimeOffset purchased_at)
+        {
+            //Check if we already have a holding like this
+            EquityHolding nh = null;
+            foreach (EquityHolding h in EquityHoldings)
+            {
+                if (h.Symbol.ToUpper() == symbol.ToUpper())
+                {
+                    nh = h;
+                }
+            }
+
+            //Create a new one if we couldn't find this holding that already exists.
+            if (nh == null)
+            {
+                nh = new EquityHolding();
+                nh.Symbol = symbol.ToUpper().Trim();
+                nh.Quantity = 0;
+                nh.AverageCostBasis = 0;
+                EquityHoldings.Add(nh);
+            }
+
+
+            //Calculate the new Average Per Share Cost basis
+            float CurrentTotalCost = nh.AverageCostBasis * nh.Quantity;
+            float NewTotalCost = price_per_share * quantity;
+            float NewAvgCostBasis = (CurrentTotalCost + NewTotalCost) / (quantity + nh.Quantity);
+            nh.AverageCostBasis = NewAvgCostBasis;
+
+            //add the shares we are buying to the balane
+            nh.Quantity = nh.Quantity + quantity;
+
+            //Log the transaction
+            EquityTransaction et = new EquityTransaction();
+            et.TransactedOn = purchased_at;
+            et.Quantity = quantity;
+            et.StockSymbol = symbol.ToUpper().Trim();
+            et.OrderType = TransactionType.Buy;
+            et.PriceExecutedAt = price_per_share;
+            EquityTransactionLog.Add(et);
         }
     }
 }
