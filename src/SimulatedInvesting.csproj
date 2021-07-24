@@ -14,7 +14,7 @@
 
   <ItemGroup>
     <PackageReference Include="TimHanewich.Investing" Version="3.0.0" />
-    <PackageReference Include="Yahoo.Finance" Version="3.0.0" />
+    <PackageReference Include="Yahoo.Finance" Version="4.1.0" />
   </ItemGroup>
 
   <ItemGroup>
