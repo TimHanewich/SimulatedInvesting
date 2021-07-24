@@ -1,3 +1,5 @@
 src/bin
 src/obj
 .vs/
+testing/bin/
+testing/obj/
