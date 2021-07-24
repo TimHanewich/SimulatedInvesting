@@ -165,7 +165,10 @@ namespace SimulatedInvesting
             float CashInvested = 0;
             foreach (CashTransaction ct in CashTransactionLog)
             {
-                CashInvested = ct.CashChange;
+                if (ct.ChangeType == CashTransactionType.Edit) //Only count it if it was added. If it was a charge for trading (commission), do not count it.
+                {
+                    CashInvested = CashInvested + ct.CashChange;
+                }
             }
 
 
