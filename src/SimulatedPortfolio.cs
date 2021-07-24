@@ -44,7 +44,7 @@ namespace SimulatedInvesting
             //Perform the edit!
             Cash = Cash + cash_edit;
             CashTransaction ct = new CashTransaction();
-            ct.TransactionType = ctt;
+            ct.ChangeType = ctt;
             ct.UpdateTransactionTime();
             ct.CashChange = cash_edit;
             CashTransactionLog.Add(ct);
