@@ -127,7 +127,7 @@ namespace SimulatedInvesting
             //Take out the commission (if any)
             if (TradeCost > 0)
             {
-                EditCash(TradeCost, CashTransactionType.TradingRelatedCharge);
+                EditCash(TradeCost * -1, CashTransactionType.TradingRelatedCharge);
             }
         }
 
