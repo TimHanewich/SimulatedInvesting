@@ -30,31 +30,24 @@ namespace SimulatedInvesting
             return ReturnInstance;
         }
 
-        public void EditCash(float cash_edit)
+        public void EditCash(float cash_edit, CashTransactionType ctt = CashTransactionType.Edit)
         {
-            if(cash_edit > 0)
+            //Error check
+            if (cash_edit < 0)
             {
-                Cash = Cash + cash_edit;
-                CashTransaction ct = new CashTransaction();
-                ct.UpdateTransactionTime();
-                ct.CashChange = cash_edit;
-                CashTransactionLog.Add(ct);
-            }
-            else if (cash_edit < 0)
-            {
-                if (Math.Abs(cash_edit) <= Cash) //They have enough to back it up (more cash in the bank than they are requesting)
-                {
-                    Cash = Cash + cash_edit;
-                    CashTransaction ct = new CashTransaction();
-                    ct.UpdateTransactionTime();
-                    ct.CashChange = cash_edit;
-                    CashTransactionLog.Add(ct);
-                }
-                else
+                if (Math.Abs(cash_edit) > Cash)
                 {
                     throw new Exception("Trying to withdraw more cash than portfolio has.  Trying to withdraw: $" + cash_edit.ToString("#,##0.00") + ", portfolio has $" + Cash.ToString("#,##0.00"));
                 }
             }
+
+            //Perform the edit!
+            Cash = Cash + cash_edit;
+            CashTransaction ct = new CashTransaction();
+            ct.TransactionType = ctt;
+            ct.UpdateTransactionTime();
+            ct.CashChange = cash_edit;
+            CashTransactionLog.Add(ct);
         }
 
         public async Task TradeEquityAsync(string symbol, int quantity, TransactionType order_type)
