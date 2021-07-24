@@ -15,6 +15,7 @@ namespace SimulatedInvesting
         public List<EquityHolding> EquityHoldings { get; set; }
         public List<EquityTransaction> EquityTransactionLog { get; set; }
         public List<CashTransaction> CashTransactionLog { get; set; }
+        public float TradeCost {get; set;} //i.e. commission
 
         public static SimulatedPortfolio Create(string ownername = "")
         {
@@ -123,6 +124,11 @@ namespace SimulatedInvesting
                 }
             }
 
+            //Take out the commission (if any)
+            if (TradeCost > 0)
+            {
+                EditCash(TradeCost, CashTransactionType.TradingRelatedCharge);
+            }
         }
 
         public async Task<float> CalculateNetProfitAsync()
